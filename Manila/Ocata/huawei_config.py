@@ -24,6 +24,7 @@ from lxml import etree as ET
 from manila import exception
 from manila.i18n import _
 from manila.share.drivers.huawei import constants
+import lxml.etree
 
 LOG = logging.getLogger(__name__)
 
@@ -42,7 +43,7 @@ class HuaweiConfig(object):
         self.last_modify_time = file_time
 
         tree = ET.parse(self.config.manila_huawei_conf_file,
-                        ET.XMLParser(resolve_entities=False))
+                        ET.XMLParser(resolve_entities=False), parser=lxml.etree.XMLParser(resolve_entities=False))
         xml_root = tree.getroot()
         self._encode_authentication(tree, xml_root)
 

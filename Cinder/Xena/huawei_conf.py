@@ -31,6 +31,7 @@ import six
 from cinder import exception
 from cinder.i18n import _
 from cinder.volume.drivers.huawei import constants
+import lxml.etree
 
 LOG = logging.getLogger(__name__)
 
@@ -42,7 +43,7 @@ class HuaweiConf(object):
 
     def get_xml_info(self):
         tree = ET.parse(self.conf.cinder_huawei_conf_file,
-                        ET.XMLParser(resolve_entities=False))
+                        ET.XMLParser(resolve_entities=False), parser=lxml.etree.XMLParser(resolve_entities=False))
         xml_root = tree.getroot()
         return tree, xml_root
 
